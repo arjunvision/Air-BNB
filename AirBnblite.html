@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Stays - Colorful & Dynamic Rentals</title>
+    
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for All Icons (logo, nav links, search, etc.) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        
+        :root {
+            --primary-color: #FF385C;
+            --primary-gradient: linear-gradient(90deg, #E61E4D 0%, #FF385C 100%);
+            --font-family: 'Poppins', sans-serif;
+
+            --light-bg: #FFFFFF;
+            --light-header-bg: #FFFFFF;
+            --light-card-bg: #FFFFFF;
+            --light-text: #222222;
+            --light-text-secondary: #717171;
+            --light-border: #DDDDDD;
+            --light-shadow: rgba(0, 0, 0, 0.12);
+            --light-shadow-strong: rgba(0, 0, 0, 0.2);
+
+
+            --dark-bg: #121212;
+            --dark-header-bg: #1e1e1e;
+            --dark-card-bg: #2a2a2a;
+            --dark-text: #E0E0E0;
+            --dark-text-secondary: #a0a0a0;
+            --dark-border: #444444;
+            --dark-shadow: rgba(255, 255, 255, 0.08);
+            --dark-shadow-strong: rgba(255, 255, 255, 0.15);
+
+
+            --bg-color: var(--light-bg);
+            --header-bg-color: var(--light-header-bg);
+            --card-bg-color: var(--light-card-bg);
+            --text-color: var(--light-text);
+            --text-secondary-color: var(--light-text-secondary);
+            --border-color: var(--light-border);
+            --shadow-color: var(--light-shadow);
+            --shadow-strong-color: var(--light-shadow-strong);
+            
+            --transition-speed: 0.3s;
+        }
+
+        body.dark-mode {
+            --bg-color: var(--dark-bg);
+            --header-bg-color: var(--dark-header-bg);
+            --card-bg-color: var(--dark-card-bg);
+            --text-color: var(--dark-text);
+            --text-secondary-color: var(--dark-text-secondary);
+            --border-color: var(--dark-border);
+            --shadow-color: var(--dark-shadow);
+            --shadow-strong-color: var(--dark-shadow-strong);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+      
+        header {
+            background-color: var(--header-bg-color);
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all var(--transition-speed) ease-in-out;
+        }
+
+        .navbar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-left { grid-column: 1 / 2; }
+        .nav-center, .mini-search-bar { grid-column: 2 / 3; }
+        .nav-right { grid-column: 3 / 4; justify-self: end; }
+
+        .logo { display: flex; align-items: center; text-decoration: none; color: var(--primary-color); font-size: 24px; font-weight: 700; }
+        .logo i { font-size: 32px; margin-right: 8px; }
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .nav-host { text-decoration: none; color: var(--text-color); font-weight: 500; padding: 10px 15px; border-radius: 22px; transition: background-color var(--transition-speed); cursor: pointer; }
+        .nav-host:hover { background-color: rgba(0, 0, 0, 0.05); }
+        body.dark-mode .nav-host:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .theme-switcher { cursor: pointer; padding: 8px; border-radius: 50%; background: transparent; border: none; color: var(--text-color); font-size: 16px; }
+        .user-menu { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border-color); padding: 5px 5px 5px 12px; border-radius: 25px; cursor: pointer; }
+        .user-menu i.fa-circle-user { font-size: 24px; color: var(--text-secondary-color); }
+
+        
+        .search-bar-container {
+            position: relative;
+        }
+        .search-bar-wrapper {
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height var(--transition-speed) ease-in-out, padding var(--transition-speed) ease-in-out;
+            padding-bottom: 20px;
+        }
+        .search-bar { display: flex; background: var(--card-bg-color); border-radius: 32px; border: 1px solid var(--border-color); box-shadow: 0 4px 12px var(--shadow-color); width: 100%; max-width: 850px; margin: 0 auto; }
+        .search-field { flex-grow: 1; padding: 14px 24px; position: relative; border-radius: 32px; transition: background-color 0.2s; cursor: pointer; }
+        .search-field:hover { background-color: rgba(0,0,0,0.05); }
+        body.dark-mode .search-field:hover { background-color: rgba(255,255,255,0.05); }
+        .search-field.active {
+            box-shadow: 0 6px 20px var(--shadow-strong-color);
+            background-color: var(--card-bg-color);
+        }
+        .search-field:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 32px; background-color: var(--border-color); }
+        .search-field label { display: block; font-size: 12px; font-weight: 600; pointer-events: none; }
+        .search-field input { border: none; background: transparent; width: 100%; font-size: 14px; color: var(--text-secondary-color); outline: none; padding-top: 2px; pointer-events: none; }
+        .search-field.who-field { flex-grow: 1.2; }
+        .search-btn { background: var(--primary-gradient); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; margin: 7px; cursor: pointer; font-size: 16px; transition: transform 0.2s; }
+        .search-btn:hover { transform: scale(1.05); }
+
+        
+        .search-popup {
+            position: absolute;
+            background-color: var(--header-bg-color);
+            border-radius: 32px;
+            box-shadow: 0 6px 20px var(--shadow-strong-color);
+            padding: 24px;
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.98);
+            pointer-events: none;
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+        .search-popup.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        
+        #location-popup, #experience-location-popup, #service-where-popup {
+            top: calc(100% - 10px);
+            left: 0;
+            width: 450px;
+        }
+        .location-popup-content h4 { font-size: 14px; font-weight: 600; margin-bottom: 20px; }
+        .location-popup-content ul { list-style: none; }
+        .location-popup-content li { display: flex; align-items: center; gap: 16px; padding: 12px; border-radius: 12px; cursor: pointer; transition: background-color 0.2s; }
+        .location-popup-content li:hover { background-color: rgba(0,0,0,0.05); }
+        body.dark-mode .location-popup-content li:hover { background-color: rgba(255,255,255,0.05); }
+        .location-popup-content .icon-bg { font-size: 20px; background-color: var(--bg-color); border: 1px solid var(--border-color); width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; }
+        .location-popup-content .location-text strong { font-size: 16px; font-weight: 600; }
+        .location-popup-content .location-text p { font-size: 14px; color: var(--text-secondary-color); }
+
+        
+        #calendar-popup {
+            top: calc(100% - 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px) scale(0.98);
+            width: 850px;
+        }
+        #calendar-popup.visible {
+             transform: translateX(-50%) translateY(0) scale(1);
+        }
+        .calendar-nav { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; }
+        .calendar-nav button { background: none; border: none; color: var(--text-color); font-weight: 500; font-size: 16px; cursor: pointer; padding: 8px 16px; border-radius: 20px; transition: background-color 0.2s; }
+        .calendar-nav button.active { background-color: var(--text-color); color: var(--bg-color); }
+        .calendar-container { display: flex; justify-content: space-between; gap: 40px; }
+        .calendar-month { width: 100%; }
+        .month-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .month-header h5 { font-size: 16px; font-weight: 600; }
+        .month-nav-btn { background: none; border: 1px solid transparent; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; cursor: pointer; transition: border-color 0.2s; }
+        .month-nav-btn:hover { border-color: var(--border-color); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+        .calendar-grid span { text-align: center; padding: 10px; border-radius: 50%; }
+        .day-name { font-size: 12px; font-weight: 600; color: var(--text-secondary-color); }
+        .day-number { cursor: pointer; transition: background-color 0.2s, color 0.2s, border 0.2s; }
+        .day-number:hover { border: 1px solid var(--text-color); }
+        .day-number.disabled { color: var(--text-secondary-color); opacity: 0.5; cursor: not-allowed; }
+        .day-number.disabled:hover { border: none; }
+        .day-number.selected { background-color: var(--text-color); color: var(--bg-color); border: 1px solid var(--text-color); }
+
+        
+        #experience-calendar-popup, #service-date-popup {
+            top: calc(100% - 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px) scale(0.98);
+            width: 600px;
+            display: flex;
+            gap: 24px;
+        }
+        #experience-calendar-popup.visible, #service-date-popup.visible {
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+        .exp-calendar-quick-select {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .exp-calendar-quick-select button {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .exp-calendar-quick-select button:hover {
+            border-color: var(--text-color);
+        }
+        .exp-calendar-quick-select strong { font-size: 16px; }
+        .exp-calendar-quick-select p { font-size: 14px; color: var(--text-secondary-color); }
+        .exp-calendar-main { flex-grow: 1; }
+
+
+        
+        #guests-popup, #experience-guests-popup {
+            top: calc(100% - 10px);
+            right: 0;
+            width: 400px;
+        }
+        .guest-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .guest-row:not(:last-child) { border-bottom: 1px solid var(--border-color); }
+        .guest-info strong { font-size: 16px; font-weight: 600; }
+        .guest-info p { font-size: 14px; color: var(--text-secondary-color); }
+        .guest-counter { display: flex; align-items: center; gap: 16px; }
+        .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--text-secondary-color); background: none; color: var(--text-secondary-color); font-size: 16px; cursor: pointer; }
+        .counter-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .counter-value { font-size: 16px; min-width: 20px; text-align: center; }
+
+        
+        #service-type-popup {
+            top: calc(100% - 10px);
+            right: 0;
+            width: 500px;
+        }
+        .service-type-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .service-type-grid button {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 0.2s;
+        }
+        .service-type-grid button:hover {
+            border-color: var(--text-color);
+        }
+        .service-type-grid i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .service-type-grid span {
+            font-weight: 600;
+        }
+
+        
+        header.scrolled { box-shadow: 0 2px 10px var(--shadow-color); }
+        header.scrolled .search-bar-wrapper { max-height: 0; padding: 0; }
+        header.scrolled .nav-center { display: none; }
+        header:not(.scrolled) .mini-search-bar { display: none; }
+
+        /* --- NAV LINKS & NEW MINI SEARCH --- */
+        .nav-center { display: flex; gap: 20px; }
+        .nav-link { 
+            cursor: pointer;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-decoration: none; 
+            color: var(--text-secondary-color); 
+            font-weight: 500; 
+            padding: 10px; 
+            position: relative; 
+            gap: 6px; 
+        }
+        .nav-link:hover { color: var(--text-color); }
+        .nav-link.active { color: var(--text-color); }
+        .nav-link.active::after { content: ''; position: absolute; bottom: 0px; left: 10px; right: 10px; height: 2px; background-color: var(--text-color); }
+        .nav-link i { font-size: 20px; }
+
+        .mini-search-bar { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .mini-search-prompt { display: flex; align-items: center; gap: 16px; background-color: var(--card-bg-color); border: 1px solid var(--border-color); padding: 8px 8px 8px 20px; border-radius: 40px; box-shadow: 0 2px 4px var(--shadow-color); cursor: pointer; font-size: 14px; font-weight: 500; color: var(--text-color); transition: all var(--transition-speed) ease; }
+        .mini-search-prompt:hover { box-shadow: 0 4px 8px var(--shadow-color); }
+        .mini-search-prompt .separator { width: 1px; height: 20px; background-color: var(--border-color); }
+        .mini-search-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-gradient); color: white; display: grid; place-items: center; font-size: 13px; }
+
+        
+        main { padding: 40px 5%; }
+        .property-section { margin-bottom: 40px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-header h2 { font-size: 22px; font-weight: 600; }
+        .carousel-nav { display: flex; gap: 10px; }
+        .carousel-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-color); background-color: var(--card-bg-color); color: var(--text-color); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .carousel-btn:hover { transform: scale(1.1); box-shadow: 0 2px 4px var(--shadow-color); }
+
+        .property-carousel { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+        .property-carousel::-webkit-scrollbar { display: none; }
+
+        .property-card, .experience-card, .service-card { 
+            scroll-snap-align: start; 
+            cursor: pointer; 
+            transform-style: preserve-3d; 
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        .property-carousel:hover .property-card:not(:hover),
+        .property-carousel:hover .experience-card:not(:hover),
+        .property-carousel:hover .service-card:not(:hover) { 
+            transform: scale(0.95); opacity: 0.7; 
+        }
+        .property-card:hover, .experience-card:hover, .service-card:hover { 
+            transform: translateY(-15px) rotateX(5deg) scale(1.05); 
+            box-shadow: 0 25px 50px -12px var(--shadow-strong-color); 
+        }
+        .property-card, .service-card { flex: 0 0 23%; min-width: 280px; }
+        
+        .card-image { width: 100%; border-radius: 15px; overflow: hidden; position: relative; margin-bottom: 12px; }
+        .property-card .card-image, .service-card .card-image { aspect-ratio: 1 / 1; }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .property-card:hover .card-image img, .experience-card:hover .card-image img, .service-card:hover .card-image img { transform: scale(1.1); }
+        
+        .badge { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, 0.9); color: var(--light-text); padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; }
+        .favorite-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 24px; color: white; cursor: pointer; text-shadow: 0 1px 4px rgba(0,0,0,0.5); transition: transform 0.2s; }
+        .favorite-btn:hover { transform: scale(1.2); }
+        .favorite-btn.active .fa-heart { font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); }
+        
+        .card-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 2px; color: var(--text-color); }
+        .card-info .price { font-size: 15px; font-weight: 600; color: var(--text-color); margin-bottom: 4px; }
+        .card-info .rating { font-size: 15px; color: var(--text-secondary-color); }
+        .card-info .rating .fa-star { color: var(--text-color); }
+
+      
+        .experience-card, .service-card {
+            flex: 0 0 18%;
+            min-width: 240px;
+        }
+        .experience-card .card-image {
+            aspect-ratio: 3 / 4;
+        }
+        .experience-card .badge, .service-card .badge {
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+        }
+        .experience-card .card-info p, .service-card .card-info p {
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-secondary-color);
+        }
+         .experience-card .card-info .exp-title, .service-card .card-info .service-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 4px 0;
+        }
+        .experience-card .card-info .exp-price, .service-card .card-info .service-price {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+      
+        #host-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-speed) ease;
+        }
+        #host-modal-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #host-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background-color: var(--header-bg-color);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            z-index: 2001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+        #host-modal-overlay.visible #host-modal {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .host-modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            text-align: center;
+        }
+        .host-modal-header h3 { font-weight: 600; }
+        .host-modal-close {
+            position: absolute;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+        }
+        body:not(.dark-mode) .host-modal-close:hover { background-color: #f0f0f0; }
+        body.dark-mode .host-modal-close:hover { background-color: #333; }
+        .host-modal-body { padding: 24px; display: flex; gap: 16px; }
+        .host-option {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .host-option:hover {
+            border-color: var(--text-color);
+            transform: scale(1.03);
+        }
+        .host-option.selected {
+            border-color: var(--text-color);
+            border-width: 2px;
+            background-color: rgba(0,0,0,0.02);
+        }
+        body.dark-mode .host-option.selected {
+             background-color: rgba(255,255,255,0.05);
+        }
+        .host-option-icon { font-size: 48px; margin-bottom: 12px; }
+        .host-modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: right;
+        }
+        .host-modal-next {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .host-modal-next:hover:not(:disabled) {
+            transform: scale(1.02);
+        }
+        .host-modal-next:disabled {
+            background: var(--text-secondary-color);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+
+        
+        @media (max-width: 1024px) {
+            .nav-host { display: none; }
+            .mini-search-prompt span:not(.mini-search-icon) { display: none; }
+            .mini-search-prompt { gap: 0; padding: 8px; }
+            #location-popup { width: 350px; }
+            #calendar-popup { width: 100%; }
+            .calendar-container { flex-direction: column; gap: 10px; }
+            #experience-calendar-popup, #service-date-popup { flex-direction: column; width: 350px; }
+        }
+        @media (max-width: 768px) {
+            .logo span { display: none; }
+            .nav-center { display: none; }
+            header.scrolled .mini-search-bar { display: none; }
+            .navbar { grid-template-columns: auto 1fr; }
+            .nav-right { gap: 8px; }
+            .property-card, .experience-card, .service-card { flex: 0 0 48%; }
+            .search-bar { flex-direction: column; border-radius: 16px; }
+            .search-field { border-bottom: 1px solid var(--border-color); border-radius: 0; }
+            .search-field:first-child { border-top-left-radius: 16px; border-top-right-radius: 16px; }
+            .search-field:last-of-type { border-bottom: none; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
+            .search-field:not(:last-child)::after { display: none; }
+            .search-btn { width: calc(100% - 16px); margin: 8px; border-radius: 8px; }
+            .search-popup { width: 94%; left: 3%; top: 85px; }
+            #calendar-popup, #experience-calendar-popup, #service-date-popup { transform: translateX(-3%) translateY(-10px) scale(0.98); }
+            #calendar-popup.visible, #experience-calendar-popup.visible, #service-date-popup.visible { transform: translateX(-3%) translateY(0) scale(1); }
+            .host-modal-body { flex-direction: column; }
+        }
+        @media (max-width: 480px) {
+             .property-card, .experience-card, .service-card { flex: 0 0 80%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================= HEADER ======================= -->
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#" class="logo">
+                    <i class="fa-brands fa-airbnb"></i>
+                    <span>Air BNB lite</span>
+                </a>
+            </div>
+
+            <div class="mini-search-bar">
+                <button class="mini-search-prompt">
+                    <span>Anywhere</span>
+                    <span class="separator"></span>
+                    <span>Any time</span>
+                    <span class="separator"></span>
+                    <span>Add guests</span>
+                    <span class="mini-search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                </button>
+            </div>
+            
+            <div class="nav-center">
+                <a class="nav-link active" data-view="homes">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Homes</span>
+                </a>
+                <a class="nav-link" data-view="experiences">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>Experiences</span>
+                </a>
+                <a class="nav-link" data-view="services">
+                    <i class="fa-solid fa-concierge-bell"></i>
+                    <span>Services</span>
+                </a>
+            </div>
+
+            <div class="nav-right">
+                <a class="nav-host">Become a host</a>
+                <button class="theme-switcher" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
+                <div class="user-menu">
+                    <i class="fa-solid fa-bars"></i>
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+            </div>
+        </nav>
+
+        <section id="homes-search" class="search-bar-container">
+            <div class="search-bar-wrapper">
+                <form class="search-bar">
+                    <div class="search-field" id="where-field">
+                        <label for="where">Where</label>
+                        <input type="text" id="where-input" placeholder="Search destinations">
+                    </div>
+                    <div class="search-field" id="checkin-field">
+                        <label>Check in</label>
+                        <input type="text" id="checkin-input" placeholder="Add dates">
+                    </div>
+                    <div class="search-field" id="checkout-field">
+                        <label>Check out</label>
+                        <input type="text" id="checkout-input" placeholder="Add dates">
+                    </div>
+                    <div class="search-field who-field" id="who-field">
+                        <label>Who</label>
+                        <input type="text" id="who-input" placeholder="Add guests">
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <div id="location-popup" class="search-popup location-popup-content">
+                <h4>Suggested destinations</h4>
+                <ul>
+                    <li>
+                        <div class="icon-bg"><i class="fa-solid fa-location-arrow"></i></div>
+                        <div class="location-text">
+                            <strong>Nearby</strong>
+                            <p>Find what's around you</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-bg"><i class="fa-solid fa-umbrella-beach"></i></div>
+                        <div class="location-text">
+                            <strong>Puducherry, Puducherry</strong>
+                            <p>Great for a weekend getaway</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="calendar-popup" class="search-popup">
+                <div class="calendar-nav">
+                    <button class="active">Dates</button>
+                    <button>Months</button>
+                    <button>Flexible</button>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-month" id="month-one"></div>
+                    <div class="calendar-month" id="month-two"></div>
+                </div>
+            </div>
+
+            <div id="guests-popup" class="search-popup">
+                <div class="guest-row" data-type="adults">
+                    <div class="guest-info"><strong>Adults</strong><p>Ages 13 or above</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+                <div class="guest-row" data-type="children">
+                    <div class="guest-info"><strong>Children</strong><p>Ages 2-12</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+                <div class="guest-row" data-type="infants">
+                    <div class="guest-info"><strong>Infants</strong><p>Under 2</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+                <div class="guest-row" data-type="pets">
+                    <div class="guest-info"><strong>Pets</strong><p>Bringing a service animal?</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiences-search" class="search-bar-container hidden">
+             <div class="search-bar-wrapper">
+                <form class="search-bar">
+                    <div class="search-field" id="exp-where-field" style="flex-grow: 2;">
+                        <label>Where</label>
+                        <input type="text" id="exp-where-input" placeholder="Search destinations">
+                    </div>
+                    <div class="search-field" id="exp-date-field">
+                        <label>Date</label>
+                        <input type="text" id="exp-date-input" placeholder="Add dates">
+                    </div>
+                    <div class="search-field" id="exp-who-field">
+                        <label>Who</label>
+                        <input type="text" id="exp-who-input" placeholder="Add guests">
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <div id="experience-location-popup" class="search-popup location-popup-content">
+                <h4>Suggested destinations</h4>
+                <ul>
+                    <li><div class="icon-bg"><i class="fa-solid fa-umbrella-beach"></i></div><div class="location-text"><strong>Puducherry, Puducherry</strong><p>Great for a weekend getaway</p></div></li>
+                    <li><div class="icon-bg"><i class="fa-solid fa-umbrella-beach"></i></div><div class="location-text"><strong>North Goa, Goa</strong><p>Popular beach destination</p></div></li>
+                    <li><div class="icon-bg"><i class="fa-solid fa-tree"></i></div><div class="location-text"><strong>Bengaluru, Karnataka</strong><p>For sights like Lalbagh Botanical Garden</p></div></li>
+                    <li><div class="icon-bg"><i class="fa-solid fa-monument"></i></div><div class="location-text"><strong>New Delhi, Delhi</strong><p>For sights like India Gate</p></div></li>
+                </ul>
+            </div>
+
+            <div id="experience-calendar-popup" class="search-popup">
+                <div class="exp-calendar-quick-select">
+                    <button id="exp-date-today"><strong>Today</strong><p>Aug 4</p></button>
+                    <button id="exp-date-tomorrow"><strong>Tomorrow</strong><p>Aug 5</p></button>
+                    <button id="exp-date-weekend"><strong>This weekend</strong><p>Aug 9-10</p></button>
+                </div>
+                <div class="exp-calendar-main">
+                    <div class="calendar-month" id="exp-month-one"></div>
+                </div>
+            </div>
+
+            <div id="experience-guests-popup" class="search-popup">
+                <div class="guest-row" data-type="adults">
+                    <div class="guest-info"><strong>Adults</strong><p>Ages 13 or above</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+                <div class="guest-row" data-type="children">
+                    <div class="guest-info"><strong>Children</strong><p>Ages 2-12</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+                <div class="guest-row" data-type="infants">
+                    <div class="guest-info"><strong>Infants</strong><p>Under 2</p></div>
+                    <div class="guest-counter"><button class="counter-btn" data-action="decrease" disabled>-</button><span class="counter-value">0</span><button class="counter-btn" data-action="increase">+</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services-search" class="search-bar-container hidden">
+             <div class="search-bar-wrapper">
+                <form class="search-bar">
+                    <div class="search-field" id="service-where-field" style="flex-grow: 2;">
+                        <label>Where</label>
+                        <input type="text" id="service-where-input" placeholder="Search destinations">
+                    </div>
+                    <div class="search-field" id="service-date-field">
+                        <label>Date</label>
+                        <input type="text" id="service-date-input" placeholder="Add dates">
+                    </div>
+                    <div class="search-field" id="service-type-field">
+                        <label>Type of service</label>
+                        <input type="text" id="service-type-input" placeholder="Add service">
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div id="service-where-popup" class="search-popup location-popup-content">
+                 <ul>
+                    <li>
+                        <div class="icon-bg"><i class="fa-solid fa-location-arrow"></i></div>
+                        <div class="location-text">
+                            <strong>Nearby</strong>
+                            <p>Find what's around you</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="service-date-popup" class="search-popup">
+                <div class="exp-calendar-quick-select">
+                    <button><strong>Today</strong><p>Aug 4</p></button>
+                    <button><strong>Tomorrow</strong><p>Aug 5</p></button>
+                    <button><strong>This weekend</strong><p>Aug 9-10</p></button>
+                </div>
+                <div class="exp-calendar-main">
+                    <div class="calendar-month" id="service-month-one"></div>
+                </div>
+            </div>
+
+            <div id="service-type-popup" class="search-popup">
+                <div class="service-type-grid">
+                    <button><i class="fa-solid fa-camera"></i><span>Photography</span></button>
+                    <button><i class="fa-solid fa-utensils"></i><span>Chefs</span></button>
+                    <button><i class="fa-solid fa-box"></i><span>Prepared meals</span></button>
+                    <button><i class="fa-solid fa-spa"></i><span>Massage</span></button>
+                    <button><i class="fa-solid fa-dumbbell"></i><span>Training</span></button>
+                    <button><i class="fa-solid fa-magic-wand-sparkles"></i><span>Make-up</span></button>
+                    <button><i class="fa-solid fa-scissors"></i><span>Hair</span></button>
+                    <button><i class="fa-solid fa-hot-tub-person"></i><span>Spa treatments</span></button>
+                    <button><i class="fa-solid fa-plate-wheat"></i><span>Catering</span></button>
+                    <button><i class="fa-solid fa-hand-sparkles"></i><span>Nails</span></button>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <!-- ======================= MAIN CONTENT ======================= -->
+    <main>
+        <div id="homes-view">
+            <section class="property-section">
+                <div class="section-header">
+                    <h2>Trending destinations in India</h2>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev" data-carousel="trending-carousel"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" data-carousel="trending-carousel"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="property-carousel" id="trending-carousel">
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/MWaS5Tj.jpeg" alt="Villa in Goa" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Entire villa in Candolim, Goa</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.82</p><p class="price">₹15,500 / night</p></div>
+                    </article>
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/O2M8vKi.jpeg" alt="Apartment in Mumbai" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Sea-view apartment in Mumbai</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.91</p><p class="price">₹8,200 / night</p></div>
+                    </article>
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/YVb5PMR.jpeg" alt="Houseboat in Alleppey" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Houseboat on Kerala backwaters</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.95</p><p class="price">₹12,000 / night</p></div>
+                    </article>
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/3flwH5A.jpeg" alt="Cottage in Manali" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Mountain cottage in Manali</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.88</p><p class="price">₹6,800 / night</p></div>
+                    </article>
+                     <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/5lT8Crf.jpeg" alt="Heritage home in Jaipur" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Heritage haveli in Jaipur</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.90</p><p class="price">₹9,500 / night</p></div>
+                    </article>
+                </div>
+            </section>
+             <section class="property-section">
+                <div class="section-header">
+                    <h2>Homes with pools</h2>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev" data-carousel="pools-carousel"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" data-carousel="pools-carousel"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="property-carousel" id="pools-carousel">
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/8a1aX8b.jpeg" alt="Lonavala Villa" > <span class="badge">Superhost</span> <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>4BHK villa with private pool, Lonavala</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.92</p><p class="price">₹22,000 / night</p></div>
+                    </article>
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/aL3pucC.jpeg" alt="Puducherry Home" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>French Quarter home with pool, Puducherry</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.85</p><p class="price">₹11,500 / night</p></div>
+                    </article>
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/TqBqUur.jpeg" alt="Bengaluru Farmhouse" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Farmhouse getaway near Bengaluru</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.78</p><p class="price">₹18,000 / night</p></div>
+                    </article>
+                    <article class="property-card">
+                        <div class="card-image"><img src="https://i.imgur.com/k2oeXtQ.jpeg" alt="Udaipur Haveli" > <span class="badge">Guest favourite</span> <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><h3>Royal haveli with plunge pool, Udaipur</h3><p class="rating"><i class="fa-solid fa-star"></i> 4.98</p><p class="price">₹14,200 / night</p></div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <div id="experiences-view" class="hidden">
+            <section class="property-section">
+                <div class="section-header">
+                    <h2>Unique experiences</h2>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev" data-carousel="unique-exp-carousel"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" data-carousel="unique-exp-carousel"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="property-carousel" id="unique-exp-carousel">
+                    <article class="experience-card">
+                        <div class="card-image"><img src="https://i.imgur.com/YVb5PMR.jpeg" alt="Kerala Backwaters" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="exp-title">Kayaking in Kerala's backwaters</p><p>Alleppey, India</p><p><span class="exp-price">From ₹2,500</span> / guest</p></div>
+                    </article>
+                    <article class="experience-card">
+                        <div class="card-image"><img src="https://i.imgur.com/J3mZtY0.jpeg" alt="Jaipur Block Printing" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="exp-title">Traditional block printing workshop</p><p>Jaipur, India</p><p><span class="exp-price">From ₹1,800</span> / guest</p></div>
+                    </article>
+                    <article class="experience-card">
+                        <div class="card-image"><img src="https://i.imgur.com/3flwH5A.jpeg" alt="Himalayan Trek" > <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="exp-title">Day trek to a Himalayan village</p><p>Manali, India</p><p><span class="exp-price">From ₹3,200</span> / guest</p></div>
+                    </article>
+                    <article class="experience-card">
+                        <div class="card-image"><img src="https://i.imgur.com/O2M8vKi.jpeg" alt="Mumbai Street Food" > <span class="badge">Top rated</span> <button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="exp-title">Mumbai street food tour by night</p><p>Mumbai, India</p><p><span class="exp-price">From ₹2,800</span> / guest</p></div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <div id="services-view" class="hidden">
+             <section class="property-section">
+                <div class="section-header">
+                    <h2>Photography</h2>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev" data-carousel="photography-carousel"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" data-carousel="photography-carousel"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="property-carousel" id="photography-carousel">
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/rLd7Y4d.png" alt="Stylish vintage car photo shoot Tour"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Stylish vintage car photo shoot Tour</p><p>Rome, Italy</p><p><span class="service-price">From ₹5,560</span> / guest • <i class="fa-solid fa-star"></i> 4.92</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/pZJzZ8x.png" alt="Photo session at the Metropolitan Museum of Art"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Photo session at the Metropolitan Museum of Art</p><p>New York, United States</p><p><span class="service-price">From ₹26,775</span> / guest • <i class="fa-solid fa-star"></i> 5.0</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/e2N1jYw.png" alt="Sunny French Riviera photo sessions by Claire"><span class="badge">Popular</span><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Sunny French Riviera photo sessions by Claire</p><p>Cannes, France</p><p><span class="service-price">From ₹9,099</span> / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/9jBv9Q2.png" alt="Aerial and ground photography by Daniel"><span class="badge">Popular</span><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Aerial and ground photography by Daniel</p><p>Fort Lauderdale, United States</p><p><span class="service-price">From ₹21,812</span> / group</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/QhFh6Z5.png" alt="Neapolitan memories of Giovanni"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Neapolitan memories of Giovanni</p><p>Naples, Italy</p><p><span class="service-price">From ₹4,347</span> / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/hXG49Al.png" alt="Authentic, inclusive photography by Ashley"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Authentic, inclusive photography by Ashley</p><p>Saint Paul, United States</p><p><span class="service-price">From ₹6,362</span> / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/vHqB0gT.png" alt="Downtown urban portraits by J C"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Downtown urban portraits by J C</p><p>Mexico City, Mexico</p><p><span class="service-price">From ₹6,010</span> / group</p></div>
+                    </article>
+                </div>
+            </section>
+            <section class="property-section">
+                <div class="section-header">
+                    <h2>Chefs</h2>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev" data-carousel="chefs-carousel"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" data-carousel="chefs-carousel"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="property-carousel" id="chefs-carousel">
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/kS9D1wS.png" alt="Hyperlocal, foraged fare by Clair"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Hyperlocal, foraged fare by Clair</p><p>From ₹4,275 / guest • <i class="fa-solid fa-star"></i> 5.0</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/8QGz6Wc.png" alt="The Vegan Experience"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">The Vegan Experience: Plant Based Private Chef</p><p>From ₹4,362 / guest • <i class="fa-solid fa-star"></i> 5.0</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/N7fDq4I.png" alt="Southern-French fare by Ponder"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Southern-French fare by Ponder</p><p>From ₹3,926 / guest • <i class="fa-solid fa-star"></i> 5.0</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/wP0c5k7.png" alt="Wholesome flavors by Fernanda"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Wholesome flavors by Fernanda</p><p>From ₹7,628 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/zXfG5sD.png" alt="A Poetry of Taste by Oscar"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">A Poetry of Taste by Oscar</p><p>From ₹11,121 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/kS5Y5C8.png" alt="Catalan cuisine by Cristina"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Catalan cuisine by Cristina</p><p>From ₹4,044 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/V7Yq3Q6.png" alt="International gourmet fusion by Brian"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">International gourmet fusion by Brian</p><p>From ₹7,652 / guest</p></div>
+                    </article>
+                </div>
+            </section>
+            <section class="property-section">
+                <div class="section-header">
+                    <h2>Training</h2>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn prev" data-carousel="training-carousel"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" data-carousel="training-carousel"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="property-carousel" id="training-carousel">
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/rSCo1lA.png" alt="Total Body Training by Peter"><span class="badge">Popular</span><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Total Body Training by Peter</p><p>Pasadena, United States</p><p>From ₹4,362 / guest • <i class="fa-solid fa-star"></i> 5.0</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/8m5tcnP.png" alt="Personal Training & Group Fitness"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Personal Training & Group Fitness</p><p>Westmount, Canada</p><p>From ₹6,725 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/H0d8AP2.png" alt="Sun-sweat by Nishant"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Sun-sweat by Nishant</p><p>San Diego, United States</p><p>From ₹6,725 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/mJgvyfA.png" alt="High-energy workouts by Vicky"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">High-energy workouts by Vicky</p><p>Redondo Beach, United States</p><p>From ₹2,181 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/3FwL4fD.png" alt="Yoga and embodiment by Julia"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Yoga and embodiment by Julia</p><p>From ₹2,181 / guest</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/gK6rR4y.png" alt="Personal Training w/ Dayton"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Personal Training w/ Dayton</p><p>Miami, United States</p><p>From ₹0 / group</p></div>
+                    </article>
+                    <article class="service-card">
+                        <div class="card-image"><img src="https://i.imgur.com/1n9o8wL.png" alt="Ritual yoga by Ana"><button class="favorite-btn"><i class="fa-regular fa-heart"></i></button></div>
+                        <div class="card-info"><p class="service-title">Ritual yoga by Ana</p><p>Mexico City, Mexico</p><p>From ₹1,849 / guest</p></div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- ======================= HOST MODAL ======================= -->
+    <div id="host-modal-overlay" class="hidden">
+        <div id="host-modal">
+            <div class="host-modal-header">
+                <button class="host-modal-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <h3>What would you like to host?</h3>
+            </div>
+            <div class="host-modal-body">
+                <div class="host-option" data-option="home">
+                    <div class="host-option-icon">🏠</div>
+                    <h4>Home</h4>
+                </div>
+                <div class="host-option" data-option="experience">
+                    <div class="host-option-icon">🎈</div>
+                    <h4>Experience</h4>
+                </div>
+                <div class="host-option" data-option="service">
+                    <div class="host-option-icon">🛎</div>
+                    <h4>Service</h4>
+                </div>
+            </div>
+            <div class="host-modal-footer">
+                <button class="host-modal-next" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- HEADER SCROLL EFFECT ---
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // --- THEME SWITCHER ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                body.classList.add('dark-mode');
+            }
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+            });
+
+            // --- VIEW SWITCHER ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const views = {
+                homes: document.getElementById('homes-view'),
+                experiences: document.getElementById('experiences-view'),
+                services: document.getElementById('services-view')
+            };
+            const searchBars = {
+                homes: document.getElementById('homes-search'),
+                experiences: document.getElementById('experiences-search'),
+                services: document.getElementById('services-search')
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const viewName = link.dataset.view;
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    Object.values(views).forEach(view => view.classList.add('hidden'));
+                    if (views[viewName]) views[viewName].classList.remove('hidden');
+                    Object.values(searchBars).forEach(bar => bar && bar.classList.add('hidden'));
+                    if (searchBars[viewName]) searchBars[viewName].classList.remove('hidden');
+                    closeAllPopups();
+                });
+            });
+
+            // --- POPUP MANAGEMENT ---
+            const searchFields = {
+                where: { field: document.getElementById('where-field'), popup: document.getElementById('location-popup') },
+                checkin: { field: document.getElementById('checkin-field'), popup: document.getElementById('calendar-popup') },
+                checkout: { field: document.getElementById('checkout-field'), popup: document.getElementById('calendar-popup') },
+                who: { field: document.getElementById('who-field'), popup: document.getElementById('guests-popup') },
+                expWhere: { field: document.getElementById('exp-where-field'), popup: document.getElementById('experience-location-popup') },
+                expDate: { field: document.getElementById('exp-date-field'), popup: document.getElementById('experience-calendar-popup') },
+                expWho: { field: document.getElementById('exp-who-field'), popup: document.getElementById('experience-guests-popup') },
+                serviceWhere: { field: document.getElementById('service-where-field'), popup: document.getElementById('service-where-popup') },
+                serviceDate: { field: document.getElementById('service-date-field'), popup: document.getElementById('service-date-popup') },
+                serviceType: { field: document.getElementById('service-type-field'), popup: document.getElementById('service-type-popup') }
+            };
+
+            const allPopups = document.querySelectorAll('.search-popup');
+            
+            function closeAllPopups() {
+                allPopups.forEach(p => p.classList.remove('visible'));
+                Object.values(searchFields).forEach(item => item.field && item.field.classList.remove('active'));
+            }
+
+            Object.values(searchFields).forEach(item => {
+                if (!item.field) return;
+                item.field.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const isAlreadyVisible = item.popup && item.popup.classList.contains('visible');
+                    const isSameFieldGroup = item.field.classList.conta
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Stays - Colorful & Dynamic Rentals</title>
+    
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for All Icons (logo, nav links, search, etc.) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        
+        :root {
+            --primary-color: #FF385C;
+            --primary-gradient: linear-gradient(90deg, #E61E4D 0%, #FF385C 100%);
+            --font-family: 'Poppins', sans-serif;
+
+            --light-bg: #FFFFFF;
+            --light-header-bg: #FFFFFF;
+            --light-card-bg: #FFFFFF;
+            --light-text: #222222;
+            --light-text-secondary: #717171;
